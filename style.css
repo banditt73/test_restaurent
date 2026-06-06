@@ -432,10 +432,13 @@ footer{
   gap:20px;
 }
 
-.socials a,
+.socials a{
+  color:#1877F2;
+}
+
 .socials button{
   font-size:1.8rem;
-  color:white;
+  color:#25D366;
   background:none;
   border:none;
 }
