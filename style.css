@@ -388,14 +388,17 @@ section{
 
 .contact-buttons button,
 .contact-buttons a{
+  background:#1877F2;
+  color:white;
   padding:14px 25px;
   border-radius:50px;
   font-weight:600;
+  transition:.3s;
 }
 
 .contact-buttons button{
   border:none;
-  background:#C1121F;
+  background:#rgb(37,211,102);
   color:white;
 }
 
