@@ -296,13 +296,19 @@ section{
   display:grid;
   grid-template-columns:repeat(3,1fr);
   gap:20px;
+  height:100%;
 }
 
 .stat-box{
   background:rgba(255,255,255,0.06);
-  padding:30px;
   border-radius:20px;
   text-align:center;
+
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+
+  min-height:320px;
 }
 
 .stat-box h3{
