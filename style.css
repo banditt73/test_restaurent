@@ -104,20 +104,33 @@ nav a:hover{
   overflow:hidden;
 
   background:
-    radial-gradient(circle at top right,
-                    rgba(247,127,0,.25),
-                    transparent 40%),
-
-    radial-gradient(circle at left,
-                    rgba(193,18,31,.25),
-                    trasnparent 35%),
-
     linear-gradient(
-      135deg,
+      to bottom,
       #050505 0%,
-      #111111 40%,
-      #1a0d0d 70%,
-      #C1121F 100%);
+      #0b0b0b 40%,
+      #111111 70%,
+      #161616 100%
+      );
+}
+
+.hero::before{
+  content:"";
+  position:absolute;
+  width:800px;
+  height:800px;
+  top:-300px;
+  left:50%;
+  transform:translateX(-50%);
+
+  background:
+  radial-gradient(
+    circle,
+    rgba(193,18,31,.35) 0%,
+    rgba(247,127,0,.20) 40%,
+    transparent 70%
+    );
+  
+  filter:blur(120px);
 }
 
 .hero-bg{
@@ -186,7 +199,7 @@ nav a:hover{
 .menu-section,
 .gallery-section,
 .contact-section{
-  background:#161616;
+  background:#111111;
 }
 
 section{
