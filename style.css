@@ -388,7 +388,7 @@ section{
 
 .contact-buttons button,
 .contact-buttons a{
-  background:#1877F2;
+  background:rgb(37,211,102);
   color:white;
   padding:14px 25px;
   border-radius:50px;
@@ -398,7 +398,7 @@ section{
 
 .contact-buttons button{
   border:none;
-  background:#rgb(37,211,102);
+  background:#1877F2;
   color:white;
 }
 
