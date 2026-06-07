@@ -34,6 +34,7 @@ document.getElementById("facebookBtn").href = facebookPage;
 document.getElementById("facebookFooter").href = facebookPage;
 
 document.getElementById("tiktokFooter").href = tiktokPage;
+document.getElementById("tiktokBtn").href = tiktokPage;
 
 // =========================
 // NAVBAR SCROLL EFFECT
