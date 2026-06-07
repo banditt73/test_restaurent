@@ -102,6 +102,7 @@ nav a:hover{
   align-items:center;
   text-align:center;
   overflow:hidden;
+  border-bottom:none;
 
   background:
     linear-gradient(
@@ -203,12 +204,13 @@ nav a:hover{
 }
 
 section{
-  padding:100px 0;
+  padding:70px 0;
+  border-bottom:1px solid rgba(255,255,255,0.08);
 }
 
 .section-title{
   text-align:center;
-  margin-bottom:60px;
+  margin-bottom:40px;
 }
 
 .section-title h2{
@@ -282,7 +284,7 @@ section{
 .contact-grid{
   display:grid;
   grid-template-columns:1fr 1fr;
-  gap:50px;
+  gap:35px;
   align-items:center;
 }
 
@@ -403,8 +405,12 @@ section{
 }
 
 .contact-buttons a{
-  background:rgba(255,255,255,0.06);
+  background:#1877F2;
   color:white;
+}
+
+.contact-buttons a:hover{
+  background:#166FE5;
 }
 
 iframe{
