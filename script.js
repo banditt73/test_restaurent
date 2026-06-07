@@ -2,9 +2,9 @@
 // VARIABLES
 // =========================
 
-const whatsappNumber = "923499114880";
-const facebookPage = "https://facebook.com/yourpage";
-const tiktokPage = "https://tiktok.com/@yourpage";
+const whatsappNumber = "923453896060";
+const facebookPage = "https://facebook.com/61583483672693";
+const tiktokPage = "https://tiktok.com/@khanpizzahut6060";
 
 // =========================
 // WHATSAPP FUNCTION
