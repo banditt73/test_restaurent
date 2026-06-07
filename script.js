@@ -5,8 +5,9 @@
 // VARIABLES
 // =========================
 
-const whatsappNumber = "923001234567";
+const whatsappNumber = "923499114880";
 const facebookPage = "https://facebook.com/yourpage";
+const tiktokPage = "https://tiktok.com/@yourpage";
 
 // =========================
 // WHATSAPP FUNCTION
@@ -31,6 +32,8 @@ function openWhatsApp(item = "") {
 
 document.getElementById("facebookBtn").href = facebookPage;
 document.getElementById("facebookFooter").href = facebookPage;
+
+document.getElementById("tiktokFooter").href = tiktokPage;
 
 // =========================
 // NAVBAR SCROLL EFFECT
