@@ -1,6 +1,3 @@
-# script.js
-
-```javascript id="script-js-01"
 // =========================
 // VARIABLES
 // =========================
@@ -27,14 +24,29 @@ function openWhatsApp(item = "") {
 }
 
 // =========================
-// FACEBOOK LINKS
+// SOCIAL LINKS
 // =========================
 
-document.getElementById("facebookBtn").href = facebookPage;
-document.getElementById("facebookFooter").href = facebookPage;
+const facebookBtn = document.getElementById("facebookBtn");
+const facebookFooter = document.getElementById("facebookFooter");
+const tiktokBtn = document.getElementById("tiktokBtn");
+const tiktokFooter = document.getElementById("tiktokFooter");
 
-document.getElementById("tiktokFooter").href = tiktokPage;
-document.getElementById("tiktokBtn").href = tiktokPage;
+if (facebookBtn) {
+  facebookBtn.href = facebookPage;
+}
+
+if (facebookFooter) {
+  facebookFooter.href = facebookPage;
+}
+
+if (tiktokBtn) {
+  tiktokBtn.href = tiktokPage;
+}
+
+if (tiktokFooter) {
+  tiktokFooter.href = tiktokPage;
+}
 
 // =========================
 // NAVBAR SCROLL EFFECT
@@ -44,7 +56,7 @@ const navbar = document.getElementById("navbar");
 
 window.addEventListener("scroll", () => {
 
-  if(window.scrollY > 50){
+  if (window.scrollY > 50) {
     navbar.classList.add("nav-scrolled");
   } else {
     navbar.classList.remove("nav-scrolled");
@@ -59,7 +71,12 @@ window.addEventListener("scroll", () => {
 const menuToggle = document.getElementById("menuToggle");
 const navMenu = document.getElementById("navMenu");
 
-menuToggle.addEventListener("click", () => {
-  navMenu.classList.toggle("active");
-});
-```
+if (menuToggle && navMenu) {
+
+  menuToggle.addEventListener("click", () => {
+
+    navMenu.classList.toggle("active");
+
+  });
+
+}
