@@ -455,7 +455,25 @@ footer{
 }
 
 #tiktokFooter{
-  color:#ffffff;
+  background:linear-gradient(
+    135deg,
+    #25F4EE 0%,
+    #000000 45%,
+    #FE2C55 100%
+  );
+
+  color:white;
+  width:45px;
+  height:45px;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+#tiktokFooter:hover{
+  background:#111111;
+  transform:translateY(-3px);
 }
 
 .socials button{
