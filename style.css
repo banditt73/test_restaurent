@@ -229,6 +229,35 @@ section{
   gap:30px;
 }
 
+.menu-categories{
+  display:flex;
+  justify-content:center;
+  gap:15px;
+  margin-bottom:40px;
+  flex-wrap:wrap;
+}
+
+.category-btn{
+  background:rgba(255,255,255,0.06);
+  border:1px solid rgba(255,255,255,0.08);
+  color:white;
+  padding:12px 24px;
+  border-radius:50px;
+  cursor:pointer;
+  font-weight:600;
+  transition:.3s;
+}
+
+.category-btn:hover{
+  background:#F77F00;
+  border-color:#F77F00;
+}
+
+.category-btn.active{
+  background:#C1121F;
+  border-color:#C1121F;
+}
+
 .food-card{
   background:rgba(255,255,255,0.06);
   border-radius:25px;
