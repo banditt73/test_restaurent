@@ -233,29 +233,51 @@ section{
   display:flex;
   justify-content:center;
   gap:15px;
-  margin-bottom:40px;
   flex-wrap:wrap;
+  margin-bottom:40px;
 }
 
 .category-btn{
-  background:rgba(255,255,255,0.06);
-  border:1px solid rgba(255,255,255,0.08);
-  color:white;
-  padding:12px 24px;
+  border:none;
+  padding:14px 28px;
   border-radius:50px;
+
+  background:
+  linear-gradient(
+    135deg,
+    #F77F00,
+    #FCBF49
+  );
+
+  color:white;
+  font-weight:700;
   cursor:pointer;
-  font-weight:600;
+
   transition:.3s;
 }
 
 .category-btn:hover{
-  background:#F77F00;
-  border-color:#F77F00;
+  transform:translateY(-3px);
+
+  background:
+  linear-gradient(
+    135deg,
+    #C1121F,
+    #F77F00
+  );
+
+  box-shadow:0 8px 25px rgba(247,127,0,.35);
 }
 
 .category-btn.active{
-  background:#C1121F;
-  border-color:#C1121F;
+  background:
+  linear-gradient(
+    135deg,
+    #C1121F,
+    #F77F00
+  );
+
+  box-shadow:0 8px 25px rgba(247,127,0,.35);
 }
 
 .food-card{
