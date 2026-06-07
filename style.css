@@ -436,14 +436,29 @@ footer{
 .socials{
   display:flex;
   gap:20px;
+  align-items:center;
 }
 
-.socials a{
+.socials a,
+.socials button{
+  font-size:1.8rem;
+  transition:.3s;
+}
+
+.socials a:hover,
+.socials button:hover{
+  transform:translateY(-3px);
+}
+
+.socials a:first-child{
   color:#1877F2;
 }
 
+#tiktokFooter{
+  color:#ffffff;
+}
+
 .socials button{
-  font-size:1.8rem;
   color:#25D366;
   background:none;
   border:none;
