@@ -80,3 +80,46 @@ if (menuToggle && navMenu) {
   });
 
 }
+// =========================
+// MENU FILTER
+// =========================
+
+const categoryButtons =
+  document.querySelectorAll(".category-btn");
+
+const foodCards =
+  document.querySelectorAll(".food-card");
+
+categoryButtons.forEach(button => {
+
+  button.addEventListener("click", () => {
+
+    categoryButtons.forEach(btn =>
+      btn.classList.remove("active")
+    );
+
+    button.classList.add("active");
+
+    const filter =
+      button.dataset.filter;
+
+    foodCards.forEach(card => {
+
+      if (
+        filter === "all" ||
+        card.dataset.category === filter
+      ) {
+
+        card.style.display = "block";
+
+      } else {
+
+        card.style.display = "none";
+
+      }
+
+    });
+
+  });
+
+});
