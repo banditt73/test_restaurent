@@ -427,6 +427,30 @@
     <i class="fa-brands fa-whatsapp"></i>
   </button>
 
+  <script type="module">
+  // Import the functions you need from the SDKs you need
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-app.js";
+  import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-analytics.js";
+  // TODO: Add SDKs for Firebase products that you want to use
+  // https://firebase.google.com/docs/web/setup#available-libraries
+
+  // Your web app's Firebase configuration
+  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+  const firebaseConfig = {
+    apiKey: "AIzaSyD38MbdY3awMPg4jhr16yMbk96HOltaMS0",
+    authDomain: "khan-pizza-hut.firebaseapp.com",
+    projectId: "khan-pizza-hut",
+    storageBucket: "khan-pizza-hut.firebasestorage.app",
+    messagingSenderId: "365147610724",
+    appId: "1:365147610724:web:eaff71796ccfa9e77a8971",
+    measurementId: "G-26E0XRT5N6"
+  };
+
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+  const analytics = getAnalytics(app);
+</script>
+
   <!-- JS -->
 
   <script src="script.js"></script>
