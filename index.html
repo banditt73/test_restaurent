@@ -438,13 +438,18 @@ import {
 } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
 
 const firebaseConfig = {
-  // YOUR FIREBASE CONFIG HERE
+  apiKey: "AIzaSyD38MbdY3awMPg4jhr16yMbk96HOltaMS0",
+  authDomain: "khan-pizza-hut.firebaseapp.com",
+  projectId: "khan-pizza-hut",
+  storageBucket: "khan-pizza-hut.firebasestorage.app",
+  messagingSenderId: "365147610724",
+  appId: "1:365147610724:web:eaff71796ccfa9e77a8971",
+  measurementId: "G-26E0XRT5N6"
 };
 
 const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
 
-console.log("Firebase Connected Successfully");
+const db = getFirestore(app);
 
 const snapshot = await getDocs(
   collection(db, "menu")
@@ -455,7 +460,6 @@ snapshot.forEach((doc) => {
 });
 
 </script>
-
   <!-- JS -->
 
   <script src="script.js"></script>
