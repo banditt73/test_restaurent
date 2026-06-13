@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Khan Pizza Hut Admin</title>
+
+<link rel="stylesheet" href="admin.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+<div class="container">
+
+  <h1>🍕 Khan Pizza Hut Dashboard</h1>
+
+  <div class="card">
+
+    <h2>Add New Item</h2>
+
+    <input id="name" placeholder="Item Name">
+
+    <input id="price" type="number" placeholder="Price">
+
+    <input id="image" placeholder="Image URL">
+
+    <input id="rating" placeholder="Rating">
+
+    <select id="category">
+      <option>Burger</option>
+      <option>Pizza</option>
+      <option>Deals</option>
+      <option>Drinks</option>
+    </select>
+
+    <textarea id="description" placeholder="Description"></textarea>
+
+    <button id="addBtn">Add Item</button>
+
+  </div>
+
+  <div id="menuList"></div>
+
+</div>
+
+<script type="module" src="admin.js"></script>
+
+</body>
+</html>
