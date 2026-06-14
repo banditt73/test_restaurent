@@ -20,6 +20,8 @@ async function loadMenu() {
   });
 }
 
+loadMenu();
+
 // =========================
 // VARIABLES
 // =========================
