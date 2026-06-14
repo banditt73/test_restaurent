@@ -20,7 +20,28 @@ async function loadMenu() {
   });
 }
 
-loadMenu();
+async function loadMenu() {
+  const querySnapshot = await getDocs(collection(db, "menu"));
+
+  const container = document.getElementById("menu-container");
+
+  container.innerHTML = "";
+
+  querySnapshot.forEach((doc) => {
+    const item = doc.data();
+
+    container.innerHTML += `
+      <div class="food-card">
+        <img src="${item.image}" />
+        <h3>${item.name}</h3>
+        <p>Rs ${item.price}</p>
+        <button onclick="openWhatsApp('${item.name}')">
+          Order Now
+        </button>
+      </div>
+    `;
+  });
+}
 
 // =========================
 // VARIABLES
