@@ -6,42 +6,47 @@
 <title>Khan Pizza Hut Admin</title>
 
 <link rel="stylesheet" href="admin.css">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
-
 <body>
 
 <div class="container">
 
-  <h1>🍕 Khan Pizza Hut Dashboard</h1>
+<h1>🍕 Khan Pizza Hut Admin</h1>
 
-  <div class="card">
+<div class="card">
 
-    <h2>Add New Item</h2>
+<h2>Add / Edit Item</h2>
 
-    <input id="name" placeholder="Item Name">
+<input type="text" id="name" placeholder="Item Name">
 
-    <input id="price" type="number" placeholder="Price">
+<input type="number" id="price" placeholder="Price">
 
-    <input id="image" placeholder="Image URL">
+<input type="text" id="image" placeholder="Image URL">
 
-    <input id="rating" placeholder="Rating">
+<input type="text" id="category" placeholder="Burger / Pizza / Deals">
 
-    <select id="category">
-      <option>Burger</option>
-      <option>Pizza</option>
-      <option>Deals</option>
-      <option>Drinks</option>
-    </select>
+<input type="text" id="description" placeholder="Description">
 
-    <textarea id="description" placeholder="Description"></textarea>
+<input type="number" id="discount" placeholder="Discount %">
 
-    <button id="addBtn">Add Item</button>
+<label>
+<input type="checkbox" id="stock" checked>
+In Stock
+</label>
 
-  </div>
+<button onclick="saveItem()">
+Save Item
+</button>
 
-  <div id="menuList"></div>
+</div>
+
+<div class="card">
+
+<h2>Menu Items</h2>
+
+<div id="items"></div>
+
+</div>
 
 </div>
 
