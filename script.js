@@ -1,3 +1,17 @@
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
+import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
+
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+const firebaseConfig = {
+  apiKey: "AIzaSyD38MbdY3awMPg4jhr16yMbk96HOltaMS0",
+  authDomain: "khan-pizza-hut.firebaseapp.com",
+  projectId: "khan-pizza-hut",
+  storageBucket: "khan-pizza-hut.firebasestorage.app",
+  messagingSenderId: "365147610724",
+  appId: "1:365147610724:web:eaff71796ccfa9e77a8971",
+  measurementId: "G-26E0XRT5N6"
+};
+
 // =========================
 // VARIABLES
 // =========================
