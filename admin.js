@@ -1,3 +1,24 @@
+function login() {
+
+  const password =
+  document.getElementById("adminPassword").value;
+
+  if(password === "Admin123") {
+
+    document.getElementById("loginBox").style.display = "none";
+
+    document.getElementById("adminPanel").style.display = "block";
+
+  } else {
+
+    alert("Wrong password");
+
+  }
+
+}
+
+window.login = login;
+
 import { initializeApp }
 from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
 
