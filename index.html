@@ -6,42 +6,26 @@
 
   <title>Khan Pizza Hut Mingora | Premium Fast Food</title>
 
-  <link  rel="icon" type="image/png"
-    href="KPH-Favicon.png">
+  <link rel="icon" type="image/png" href="KPH-Favicon.png">
 
-  <meta name="description"
-    content="Khan Pizza Hut in Mingora offers premium pizza, burgers, fries & WhatsApp ordering. Open daily till 1 AM.">
+  <meta name="description" content="Khan Pizza Hut in Mingora offers premium pizza, burgers, fries & WhatsApp ordering. Open daily till 1 AM.">
 
-  <meta name="keywords"
-    content="Khan Pizza Hut Mingora, Best Pizza in Mingora, Fast Food Mingora, Pizza Delivery Mingora">
-
-  <!-- Open Graph -->
-  <meta property="og:title" content="Khan Pizza Hut - Hot, Fresh & Delicious Fast Food in Mingora">
-  <meta property="og:description" content="Premium fast food in Mingora with WhatsApp ordering.">
-  <meta property="og:type" content="website">
+  <meta name="keywords" content="Khan Pizza Hut Mingora, Best Pizza in Mingora, Fast Food Mingora">
 
   <!-- Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Poppins:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 
   <!-- Font Awesome -->
-  <link rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
 
   <!-- CSS -->
-  <link rel="stylesheet" href="style.css"/>
-
+  <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
-  <div id="menu-container"></div>
-  
   <!-- NAVBAR -->
-
   <header id="navbar">
-
     <div class="container nav-wrapper">
 
       <div class="logo">
@@ -49,13 +33,11 @@
       </div>
 
       <nav id="navMenu">
-
         <a href="#home">Home</a>
         <a href="#menu">Menu</a>
         <a href="#about">About</a>
         <a href="#reviews">Reviews</a>
         <a href="#contact">Contact</a>
-
       </nav>
 
       <button class="nav-btn" onclick="openWhatsApp()">
@@ -67,298 +49,79 @@
       </div>
 
     </div>
-
   </header>
 
   <!-- HERO -->
-
   <section id="home" class="hero">
+    <h1>Hot, Fresh & Delicious Fast Food in Mingora</h1>
+    <p>Pizza, Burgers, Fries & More</p>
 
-    <div class="overlay"></div>
-
-    <div class="hero-content">
-
-      <h1>
-        Hot, Fresh & Delicious
-        <span>Fast Food</span>
-        in Mingora
-      </h1>
-
-      <p>
-        Pizza, Burgers, Fries & More — Delivered Fast
-      </p>
-
-      <div class="hero-buttons">
-
-        <button onclick="openWhatsApp()">
-          <i class="fa-brands fa-whatsapp"></i>
-          Order Now
-        </button>
-
-        <a href="#menu">
-          View Menu
-        </a>
-
-      </div>
-
-    </div>
-
+    <button onclick="openWhatsApp()">
+      Order Now
+    </button>
   </section>
 
   <!-- MENU -->
-
   <section id="menu" class="menu-section">
 
-    <div class="container">
+    <h2>Premium Menu</h2>
 
-      <div class="section-title">
-        <h2>Premium Menu</h2>
-        <p>Freshly prepared with premium ingredients</p>
-      </div>
+    <!-- FILTER BUTTONS -->
+    <div class="menu-categories">
+      <button class="category-btn active" data-filter="all">All</button>
+      <button class="category-btn" data-filter="pizza">Pizza</button>
+      <button class="category-btn" data-filter="burger">Burgers</button>
+      <button class="category-btn" data-filter="deals">Deals</button>
+    </div>
 
-      <div class="menu-categories">
-
-  <button class="category-btn active" data-filter="all">All</button>
-  <button class="category-btn" data-filter="pizza">Pizza</button>
-  <button class="category-btn" data-filter="burger">Burgers</button>
-  <button class="category-btn" data-filter="deals">Deals</button>
-
-</div>
-
-  <div class="menu-grid" id="menuGrid">
-</div>
+    <!-- FIREBASE MENU GOES HERE -->
+    <div id="menu-container" class="menu-grid"></div>
 
   </section>
 
   <!-- ABOUT -->
-
-  <section id="about" class="about-section">
-
-    <div class="container about-grid">
-
-      <div class="about-text">
-
-        <h2>Serving Mingora with Passion</h2>
-
-        <p>
-          Khan Pizza Hut proudly serves fresh delicious fast food made with premium ingredients. Every pizza, burger and fries order is prepared with passion and delivered fast.
-        </p>
-
-        <div class="features">
-
-          <div class="feature-box">
-            <i class="fa-solid fa-leaf"></i>
-            <h4>Fresh Ingredients</h4>
-          </div>
-
-          <div class="feature-box">
-            <i class="fa-solid fa-bolt"></i>
-            <h4>Fast Delivery</h4>
-          </div>
-
-          <div class="feature-box">
-            <i class="fa-solid fa-fire"></i>
-            <h4>Best Taste</h4>
-          </div>
-
-          <div class="feature-box">
-            <i class="fa-solid fa-users"></i>
-            <h4>Great Deals</h4>
-          </div>
-
-        </div>
-
-      </div>
-
-      <div class="stats">
-
-        <div class="stat-box">
-          <h3>5K+</h3>
-          <p>Happy Customers</p>
-        </div>
-
-        <div class="stat-box">
-          <h3>10K+</h3>
-          <p>Orders Delivered</p>
-        </div>
-
-        <div class="stat-box">
-          <h3>5+</h3>
-          <p>Years Serving</p>
-        </div>
-
-      </div>
-
-    </div>
-
+  <section id="about">
+    <h2>About Us</h2>
+    <p>We serve fresh fast food in Mingora with premium quality ingredients.</p>
   </section>
 
   <!-- REVIEWS -->
-
-  <section id="reviews" class="reviews-section">
-
-    <div class="container">
-
-      <div class="section-title">
-        <h2>Customer Reviews</h2>
-      </div>
-
-      <div class="reviews-grid">
-
-        <div class="review-card">
-          <div class="stars">★★★★★</div>
-          <p>Best pizza in Mingora. Amazing taste and service.</p>
-          <h4>Dawin</h4>
-        </div>
-
-        <div class="review-card">
-          <div class="stars">★★★★★</div>
-          <p>The burgers and fries are incredible.</p>
-          <h4>Zaid Khan</h4>
-        </div>
-
-        <div class="review-card">
-          <div class="stars">★★★★★</div>
-          <p>Very premium environment and fast delivery.</p>
-          <h4>Bilal Murad Bilal</h4>
-        </div>
-
-      </div>
-
-    </div>
-
+  <section id="reviews">
+    <h2>Reviews</h2>
+    <p>★★★★★ Best pizza in town!</p>
   </section>
 
   <!-- CONTACT -->
+  <section id="contact">
 
-  <section id="contact" class="contact-section">
+    <h2>Contact</h2>
 
-    <div class="container contact-grid">
+    <p>Watkey Adda, Mingora Swat</p>
 
-      <div>
+    <button onclick="openWhatsApp()">
+      Order on WhatsApp
+    </button>
 
-        <h2>Contact Us</h2>
-
-        <div class="contact-item">
-          <i class="fa-solid fa-location-dot"></i>
-          <p>Watkey Adda Near Al Hayat Hotel Market, Mingora, Swat</p>
-        </div>
-
-        <div class="contact-item">
-          <i class="fa-solid fa-clock"></i>
-          <p>Open Daily — Closes at 1 AM</p>
-        </div>
-
-        <div class="contact-item">
-          <i class="fa-brands fa-whatsapp"></i>
-          <p>Online Orders Available</p>
-        </div>
-
-        <div class="contact-buttons">
-
-          <button onclick="openWhatsApp()">
-            Order on WhatsApp
-          </button>
-
-          <a id="facebookBtn" target="_blank">
-            Facebook
-          </a>
-
-          <a id="tiktokBtn" class="tiktok-btn" target="_blank">
-          TikTok
-          </a>
-
-        </div>
-
-      </div>
-
-    </div>
+    <a id="facebookBtn" target="_blank">Facebook</a>
+    <a id="tiktokBtn" target="_blank">TikTok</a>
 
   </section>
 
   <!-- FOOTER -->
-
   <footer>
+    <p>© 2026 Khan Pizza Hut</p>
 
-    <div class="container footer-content">
-
-      <div>
-
-        <h3>Khan Pizza Hut</h3>
-
-        <p>
-          Hot, Fresh & Delicious Fast Food in Mingora
-        </p>
-
-      </div>
-
-     <div class="socials">
-
-  <a id="facebookFooter" target="_blank">
-    <i class="fa-brands fa-facebook"></i>
-  </a>
-
-  <a id="tiktokFooter" target="_blank">
-    <i class="fa-brands fa-tiktok"></i>
-  </a>
-
-  <button onclick="openWhatsApp()">
-    <i class="fa-brands fa-whatsapp"></i>
-  </button>
-
-</div>
-
-    </div>
-
-    <div class="copyright">
-      © 2026 Khan Pizza Hut - All rights reserved.
-    </div>
-
+    <a id="facebookFooter" target="_blank">Facebook</a>
+    <a id="tiktokFooter" target="_blank">TikTok</a>
   </footer>
 
   <!-- FLOATING WHATSAPP -->
-
   <button class="whatsapp-float" onclick="openWhatsApp()">
     <i class="fa-brands fa-whatsapp"></i>
   </button>
 
-  <script type="module">
-
-import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
-
-import {
-  getFirestore,
-  collection,
-  getDocs
-} from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
-
-const firebaseConfig = {
-  apiKey: "AIzaSyD38MbdY3awMPg4jhr16yMbk96HOltaMS0",
-  authDomain: "khan-pizza-hut.firebaseapp.com",
-  projectId: "khan-pizza-hut",
-  storageBucket: "khan-pizza-hut.firebasestorage.app",
-  messagingSenderId: "365147610724",
-  appId: "1:365147610724:web:eaff71796ccfa9e77a8971",
-  measurementId: "G-26E0XRT5N6"
-};
-
-const app = initializeApp(firebaseConfig);
-
-const db = getFirestore(app);
-
-const snapshot = await getDocs(
-  collection(db, "menu")
-);
-
-snapshot.forEach((doc) => {
-  console.log(doc.id, doc.data());
-});
-
-</script>
   <!-- JS -->
-
   <script type="module" src="script.js"></script>
 
 </body>
 </html>
-```
