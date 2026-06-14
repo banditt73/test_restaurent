@@ -1,3 +1,17 @@
+const ADMIN_PASSWORD = "Admin 123";
+
+function checkAdmin() {
+  const input = prompt("Enter Admin Password:");
+
+  if (input !== ADMIN_PASSWORD) {
+    alert("Access Denied");
+    document.body.innerHTML = "<h2>Unauthorized</h2>";
+    throw new Error("Unauthorized access");
+  }
+}
+
+checkAdmin();
+
 import { initializeApp }
 from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
 
