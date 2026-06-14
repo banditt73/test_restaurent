@@ -12,6 +12,14 @@ const firebaseConfig = {
   measurementId: "G-26E0XRT5N6"
 };
 
+async function loadMenu() {
+  const querySnapshot = await getDocs(collection(db, "menu"));
+
+  querySnapshot.forEach((doc) => {
+    console.log(doc.data()); // shows each menu item
+  });
+}
+
 // =========================
 // VARIABLES
 // =========================
