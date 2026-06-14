@@ -1,14 +1,8 @@
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:'Inter',sans-serif;
-}
-
 body{
 background:#111;
-color:#fff;
-padding:30px;
+color:white;
+font-family:Arial,sans-serif;
+padding:20px;
 }
 
 .container{
@@ -16,69 +10,41 @@ max-width:1200px;
 margin:auto;
 }
 
-h1{
-margin-bottom:25px;
-}
-
 .card{
-background:#1a1a1a;
-border:1px solid #333;
+background:#1b1b1b;
 padding:20px;
-border-radius:20px;
-margin-bottom:30px;
+border-radius:15px;
+margin-bottom:20px;
 }
 
-input,
-select,
-textarea{
+input{
 width:100%;
-padding:14px;
-margin-top:12px;
-background:#222;
-border:1px solid #333;
-color:white;
-border-radius:12px;
-}
-
-textarea{
-height:120px;
-resize:none;
+padding:12px;
+margin-bottom:10px;
+border:none;
+border-radius:10px;
 }
 
 button{
-margin-top:15px;
-padding:14px 25px;
+background:linear-gradient(135deg,#ff7b00,#ff4500);
+color:white;
 border:none;
-border-radius:12px;
+padding:12px 20px;
+border-radius:10px;
 cursor:pointer;
-font-weight:600;
+font-weight:bold;
 }
 
-#addBtn{
-background:#F77F00;
-color:white;
-}
-
-.menu-item{
-background:#1a1a1a;
-border:1px solid #333;
-padding:20px;
-border-radius:20px;
-margin-bottom:15px;
-}
-
-.actions{
+.item{
 display:flex;
-gap:10px;
-margin-top:15px;
+justify-content:space-between;
+align-items:center;
+padding:15px;
+margin-top:10px;
+background:#222;
+border-radius:10px;
 }
 
-.edit-btn{
-background:#25D366;
-color:white;
-}
-
-.delete-btn{
-background:#C1121F;
-color:white;
+.actions button{
+margin-left:5px;
 }
