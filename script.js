@@ -15,14 +15,6 @@ const firebaseConfig = {
 async function loadMenu() {
   const querySnapshot = await getDocs(collection(db, "menu"));
 
-  querySnapshot.forEach((doc) => {
-    console.log(doc.data()); // shows each menu item
-  });
-}
-
-async function loadMenu() {
-  const querySnapshot = await getDocs(collection(db, "menu"));
-
   const container = document.getElementById("menu-container");
 
   container.innerHTML = "";
