@@ -1,61 +1,213 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Khan Pizza Hut Admin</title>
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+<title>Khan Pizza Hut CMS</title>
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
 <link rel="stylesheet" href="admin.css">
 </head>
+
 <body>
-<div id="loginBox">
-  <h2>Admin Login</h2>
 
-  <input type="password" id="adminPassword" placeholder="Password">
+<div class="sidebar">
 
-  <button onclick="login()">
-    Login
-  </button>
+<div class="logo">
+🍕
+<h2>KPH CMS</h2>
 </div>
 
-<div id="adminPanel" style="display:none;">
+<ul>
 
-<div class="container">
+<li class="active">
+<i class="fa-solid fa-utensils"></i>
+<span>Menu</span>
+</li>
 
-<h1>🍕 Khan Pizza Hut Admin</h1>
+<li>
+<i class="fa-solid fa-star"></i>
+<span>Reviews</span>
+</li>
 
-<div class="card">
+<li>
+<i class="fa-solid fa-gear"></i>
+<span>Settings</span>
+</li>
 
-<h2>Add / Edit Item</h2>
+<li>
+<i class="fa-solid fa-chart-line"></i>
+<span>Analytics</span>
+</li>
 
-<input type="text" id="name" placeholder="Item Name">
+</ul>
 
-<input type="number" id="price" placeholder="Price">
+</div>
 
-<input type="text" id="image" placeholder="Image URL">
+<div class="main">
 
-<input type="text" id="category" placeholder="Burger / Pizza / Deals">
+<div class="topbar">
 
-<input type="text" id="description" placeholder="Description">
+<h1>Menu Management</h1>
 
-<input type="number" id="discount" placeholder="Discount %">
+<div class="search">
 
-<label>
-<input type="checkbox" id="stock" checked>
-In Stock
-</label>
+<i class="fa-solid fa-magnifying-glass"></i>
 
-<button onclick="saveItem()">
-Save Item
+<input
+type="text"
+id="searchInput"
+placeholder="Search menu...">
+
+</div>
+
+</div>
+
+<div class="stats">
+
+<div class="stat-card">
+<h3 id="totalItems">0</h3>
+<p>Total Items</p>
+</div>
+
+<div class="stat-card">
+<h3 id="featuredItems">0</h3>
+<p>Featured</p>
+</div>
+
+<div class="stat-card">
+<h3 id="stockItems">0</h3>
+<p>In Stock</p>
+</div>
+
+<div class="stat-card">
+<h3 id="categories">0</h3>
+<p>Categories</p>
+</div>
+
+</div>
+
+<div class="toolbar">
+
+<select id="categoryFilter">
+
+<option value="all">All Categories</option>
+
+<option value="Burger">Burger</option>
+
+<option value="Pizza">Pizza</option>
+
+<option value="Deals">Deals</option>
+
+<option value="Drinks">Drinks</option>
+
+</select>
+
+<button id="addItemBtn">
+
+<i class="fa-solid fa-plus"></i>
+
+Add Item
+
 </button>
 
 </div>
 
-<div class="card">
+<div id="menuList" class="menu-list">
 
-<h2>Menu Items</h2>
+<!-- Firebase Items -->
 
-<div id="items"></div>
+</div>
+
+</div>
+
+<div id="editor" class="modal hidden">
+
+<div class="modal-box">
+
+<h2 id="editorTitle">
+Add Menu Item
+</h2>
+
+<input id="itemName" placeholder="Item Name">
+
+<input id="itemPrice" type="number" placeholder="Price">
+
+<input id="itemImage" placeholder="Image URL">
+
+<img id="previewImage">
+
+<textarea
+id="itemDescription"
+placeholder="Description">
+</textarea>
+
+<select id="itemCategory">
+
+<option>Burger</option>
+<option>Pizza</option>
+<option>Deals</option>
+<option>Drinks</option>
+
+</select>
+
+<input
+id="itemDiscount"
+type="number"
+placeholder="Discount %">
+
+<label>
+
+<input
+type="checkbox"
+id="itemStock"
+checked>
+
+In Stock
+
+</label>
+
+<label>
+
+<input
+type="checkbox"
+id="itemFeatured">
+
+Featured
+
+</label>
+
+<label>
+
+<input
+type="checkbox"
+id="itemVisible"
+checked>
+
+Visible
+
+</label>
+
+<div class="buttons">
+
+<button id="saveBtn">
+
+Save
+
+</button>
+
+<button id="cancelBtn">
+
+Cancel
+
+</button>
+
+</div>
 
 </div>
 
@@ -64,4 +216,6 @@ Save Item
 <script type="module" src="admin.js"></script>
 
 </body>
+
 </html>
+```
