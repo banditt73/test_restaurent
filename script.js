@@ -58,16 +58,56 @@ async function loadMenu() {
 
     const item = doc.data();
 
-    container.innerHTML += `
-      <div class="food-card" data-category="${item.category}">
-        <img src="${item.image}" />
-        <h3>${item.name}</h3>
-        <p>Rs ${item.price}</p>
-        <button onclick="openWhatsApp('${item.name}')">
-          Order Now
-        </button>
-      </div>
-    `;
+    const finalPrice =
+item.Discount > 0
+? Math.round(item.Price * (1 - item.Discount / 100))
+: item.Price;
+
+container.innerHTML += `
+<div class="food-card" data-category="${item.Category.toLowerCase()}">
+
+<img src="${item.Image}" alt="${item.Name}">
+
+<div class="food-content">
+
+<div class="food-top">
+
+<h3>${item.Name}</h3>
+
+<span>⭐ ${item.Rating}</span>
+
+</div>
+
+<p>${item.Description}</p>
+
+<div class="food-bottom">
+
+<h4>
+
+${
+item.Discount > 0
+?
+`<del>Rs ${item.Price}</del> Rs ${finalPrice}`
+:
+`Rs ${item.Price}`
+}
+
+</h4>
+
+<button
+${item.InStock ? "" : "disabled"}
+onclick="openWhatsApp('${item.Name}')">
+
+${item.InStock ? "Order" : "Out of Stock"}
+
+</button>
+
+</div>
+
+</div>
+
+</div>
+`;
   });
 
   setupFilters(); // IMPORTANT: run AFTER menu loads
