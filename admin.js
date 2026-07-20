@@ -34,12 +34,13 @@ from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
 
 
 const firebaseConfig = {
-  apiKey: "YOUR_KEY",
-  authDomain: "YOUR_DOMAIN",
+  apiKey: "AIzaSyD38MbdY3awMPg4jhr16yMbk96HOltaMS0",
+  authDomain: "khan-pizza-hut.firebaseapp.com",
   projectId: "khan-pizza-hut",
-  storageBucket: "YOUR_BUCKET",
-  messagingSenderId: "YOUR_ID",
-  appId: "YOUR_APP_ID"
+  storageBucket: "khan-pizza-hut.firebasestorage.app",
+  messagingSenderId: "365147610724",
+  appId: "1:365147610724:web:eaff71796ccfa9e77a8971",
+  measurementId: "G-26E0XRT5N6"
 };
 
 const app = initializeApp(firebaseConfig);
