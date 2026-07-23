@@ -638,3 +638,81 @@ footer{
 
 }
 ```
+/* ===== FIX EXISTING HERO ===== */
+
+.hero{
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    padding:0 20px;
+}
+
+.hero h1{
+    font-size:4rem;
+    max-width:850px;
+    margin-bottom:20px;
+    z-index:2;
+}
+
+.hero p{
+    font-size:1.2rem;
+    color:#ddd;
+    margin-bottom:30px;
+    z-index:2;
+}
+
+.hero button{
+    background:#25D366;
+    color:#fff;
+    border:none;
+    padding:16px 35px;
+    border-radius:50px;
+    font-size:1rem;
+    font-weight:600;
+    cursor:pointer;
+    z-index:2;
+}
+
+/* ===== FIX EXISTING CONTACT ===== */
+
+#contact{
+    text-align:center;
+}
+
+#contact button{
+    background:#25D366;
+    color:white;
+    border:none;
+    padding:14px 30px;
+    border-radius:50px;
+    cursor:pointer;
+    margin:20px 10px;
+}
+
+#contact a{
+    display:inline-block;
+    margin:10px;
+    padding:14px 25px;
+    border-radius:50px;
+    color:white;
+}
+
+#facebookBtn{
+    background:#1877F2;
+}
+
+#tiktokBtn{
+    background:#000;
+}
+
+footer{
+    text-align:center;
+}
+
+footer a{
+    display:inline-block;
+    margin:15px 10px;
+    color:white;
+}
