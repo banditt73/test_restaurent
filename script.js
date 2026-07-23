@@ -19,10 +19,6 @@ const firebaseConfig = {
   measurementId: "G-26E0XRT5N6"
 };
 
-// =========================
-// INITIALIZE FIREBASE
-// =========================
-
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
@@ -32,17 +28,16 @@ const db = getFirestore(app);
 
 window.openWhatsApp = function(item = "") {
 
-  const number = "923453896060";
+  const whatsappNumber = "923453896060";
 
-  const text = item
+  const message = item
     ? `Hello Khan Pizza Hut, I want to order ${item}.`
     : "Hello Khan Pizza Hut, I want to place an order.";
 
   window.open(
-    `https://wa.me/${number}?text=${encodeURIComponent(text)}`,
+    `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`,
     "_blank"
   );
-
 };
 
 // =========================
@@ -59,114 +54,69 @@ async function loadMenu() {
 
   const snapshot = await getDocs(collection(db, "menu"));
 
-  snapshot.forEach(doc => {
+  snapshot.forEach((doc) => {
 
     const item = doc.data();
 
+    const price = Number(item.Price || 0);
+    const discount = Number(item.Discount || 0);
+
     const finalPrice =
-      item.Discount > 0
-        ? Math.round(item.Price * (1 - item.Discount / 100))
-        : item.Price;
+      discount > 0
+        ? Math.round(price * (1 - discount / 100))
+        : price;
 
     container.innerHTML += `
+      <div class="food-card"
+           data-category="${(item.Category || "").toLowerCase()}">
 
-<div class="food-card"
-data-category="${item.Category.toLowerCase()}">
+        <img src="${item.Image}" alt="${item.Name}">
 
-<img src="${item.Image}" alt="${item.Name}">
+        <div class="food-content">
 
-<div class="food-content">
+          <div class="food-top">
+            <h3>${item.Name}</h3>
+            <span>⭐ ${item.Rating || "5.0"}</span>
+          </div>
 
-<div class="food-top">
+          <p>${item.Description}</p><div class="food-bottom">
 
-<h3>${item.Name}</h3>
+            <h4>
+              ${
+                discount > 0
+                  ? `<del>Rs ${price}</del> Rs ${finalPrice}`
+                  : `Rs ${price}`
+              }
+            </h4>
 
-<span>⭐ ${item.Rating}</span>
+            <button
+              ${item.InStock ? "" : "disabled"}
+              onclick="openWhatsApp('${item.Name}')">
 
-</div>
+              ${item.InStock ? "Order" : "Out of Stock"}
 
-<p>${item.Description}</p>
+            </button>
 
-<div class="food-bottom">
-
-<h4>
-
-${
-item.Discount > 0
-? `<del>Rs ${item.Price}</del> Rs ${finalPrice}`
-: `Rs ${item.Price}`
-}
-
-</h4>
-
-<button
-${item.InStock ? "" : "disabled"}
-onclick="openWhatsApp('${item.Name}')">
-
-${item.InStock ? "Order Now" : "Out of Stock"}
-
-</button>
-
-</div>
-
-</div>
-
-</div>
-
-`;
-
-  });
-
-  setupFilters();
-
-}    container.innerHTML += `
-    <div class="food-card" data-category="${(item.Category || "").toLowerCase()}">
-
-      <img src="${item.Image}" alt="${item.Name}">
-
-      <div class="food-content">
-
-        <div class="food-top">
-          <h3>${item.Name}</h3>
-          <span>⭐ ${item.Rating || "5.0"}</span>
-        </div>
-
-        <p>${item.Description}</p>
-
-        <div class="food-bottom">
-
-          <h4>
-            ${
-              item.Discount > 0
-                ? `<del>Rs ${item.Price}</del> Rs ${finalPrice}`
-                : `Rs ${item.Price}`
-            }
-          </h4>
-
-          <button
-            ${item.InStock ? "" : "disabled"}
-            onclick="openWhatsApp('${item.Name}')">
-
-            ${item.InStock ? "Order" : "Out of Stock"}
-
-          </button>
+          </div>
 
         </div>
 
       </div>
-
-    </div>
     `;
+
   });
 
   setupFilters();
 
 }
 
+// =========================
+// MENU FILTERS
+// =========================
+
 function setupFilters() {
 
   const buttons = document.querySelectorAll(".category-btn");
-  const cards = document.querySelectorAll(".food-card");
 
   buttons.forEach(button => {
 
@@ -177,7 +127,7 @@ function setupFilters() {
 
       const filter = button.dataset.filter.toLowerCase();
 
-      cards.forEach(card => {
+      document.querySelectorAll(".food-card").forEach(card => {
 
         const category = card.dataset.category.toLowerCase();
 
@@ -204,9 +154,9 @@ const tiktokPage = "https://tiktok.com/@khanpizzahut6060";
 
 document.getElementById("facebookBtn")?.href = facebookPage;
 document.getElementById("facebookFooter")?.href = facebookPage;
+
 document.getElementById("tiktokBtn")?.href = tiktokPage;
 document.getElementById("tiktokFooter")?.href = tiktokPage;
-
 // =========================
 // NAVBAR SCROLL
 // =========================
@@ -214,11 +164,15 @@ document.getElementById("tiktokFooter")?.href = tiktokPage;
 const navbar = document.getElementById("navbar");
 
 window.addEventListener("scroll", () => {
+
+  if (!navbar) return;
+
   if (window.scrollY > 50) {
     navbar.classList.add("nav-scrolled");
   } else {
     navbar.classList.remove("nav-scrolled");
   }
+
 });
 
 // =========================
@@ -229,7 +183,7 @@ const menuToggle = document.getElementById("menuToggle");
 const navMenu = document.getElementById("navMenu");
 
 menuToggle?.addEventListener("click", () => {
-  navMenu.classList.toggle("active");
+  navMenu?.classList.toggle("active");
 });
 
 // =========================
@@ -237,5 +191,5 @@ menuToggle?.addEventListener("click", () => {
 // =========================
 
 loadMenu().catch(error => {
-  console.error("Error loading menu:", error);
+  console.error("Menu failed to load:", error);
 });
