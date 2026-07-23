@@ -1,8 +1,13 @@
+// =========================
+// FIREBASE IMPORTS
+// =========================
+
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
+
 import {
-  getFirestore,
-  collection,
-  getDocs
+    getFirestore,
+    collection,
+    getDocs
 } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
 
 // =========================
@@ -10,72 +15,80 @@ import {
 // =========================
 
 const firebaseConfig = {
-  apiKey: "AIzaSyD38MbdY3awMPg4jhr16yMbk96HOltaMS0",
-  authDomain: "khan-pizza-hut.firebaseapp.com",
-  projectId: "khan-pizza-hut",
-  storageBucket: "khan-pizza-hut.firebasestorage.app",
-  messagingSenderId: "365147610724",
-  appId: "1:365147610724:web:eaff71796ccfa9e77a8971",
-  measurementId: "G-26E0XRT5N6"
+    apiKey: "AIzaSyD38MbdY3awMPg4jhr16yMbk96HOltaMS0",
+    authDomain: "khan-pizza-hut.firebaseapp.com",
+    projectId: "khan-pizza-hut",
+    storageBucket: "khan-pizza-hut.firebasestorage.app",
+    messagingSenderId: "365147610724",
+    appId: "1:365147610724:web:eaff71796ccfa9e77a8971",
+    measurementId: "G-26E0XRT5N6"
 };
 
-// INIT FIREBASE
+// =========================
+// INITIALIZE FIREBASE
+// =========================
+
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
 // =========================
-// WHATSAPP FUNCTION (GLOBAL FIX)
+// GLOBAL WHATSAPP FUNCTION
 // =========================
 
-window.openWhatsApp = function (item = "") {
+window.openWhatsApp = function(item = "") {
 
-  const whatsappNumber = "923453896060";
+    const phone = "923453896060";
 
-  const message = item
-    ? `Hello Khan Pizza Hut, I want to order ${item}.`
-    : "Hello Khan Pizza Hut, I want to place an order.";
+    const message = item
+        ? `Hello Khan Pizza Hut! I would like to order ${item}.`
+        : "Hello Khan Pizza Hut! I would like to place an order.";
 
-  const url = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
-
-  window.open(url, "_blank");
+    window.open(
+        `https://wa.me/${phone}?text=${encodeURIComponent(message)}`,
+        "_blank"
+    );
 };
 
 // =========================
-// LOAD MENU FROM FIREBASE
+// LOAD MENU
 // =========================
 
 async function loadMenu() {
 
-  const querySnapshot = await getDocs(collection(db, "menu"));
+    const container = document.getElementById("menu-container");
 
-  const container = document.getElementById("menu-container");
+    if (!container) return;
 
-  if (!container) return;
+    container.innerHTML = "<p>Loading menu...</p>";
 
-  container.innerHTML = "";
+    try {
 
-  querySnapshot.forEach((doc) => {
+        const snapshot = await getDocs(collection(db, "menu"));
 
-    const item = doc.data();
+        container.innerHTML = "";
 
-    const finalPrice =
-item.Discount > 0
-? Math.round(item.Price * (1 - item.Discount / 100))
-: item.Price;
+        snapshot.forEach((doc) => {
 
-container.innerHTML += `
-<div class="food-card" data-category="${item.Category.toLowerCase()}">
+            const item = doc.data();
+
+            const price = Number(item.Price) || 0;
+            const discount = Number(item.Discount) || 0;
+
+            const finalPrice =
+                discount > 0
+                    ? Math.round(price * (1 - discount / 100))
+                    : price;
+
+            container.innerHTML += `
+<div class="food-card" data-category="${item.Category}">
 
 <img src="${item.Image}" alt="${item.Name}">
 
 <div class="food-content">
 
 <div class="food-top">
-
 <h3>${item.Name}</h3>
-
-<span>⭐ ${item.Rating}</span>
-
+<span>⭐ ${item.Rating || "5.0"}</span>
 </div>
 
 <p>${item.Description}</p>
@@ -84,13 +97,9 @@ container.innerHTML += `
 
 <h4>
 
-${
-item.Discount > 0
-?
-`<del>Rs ${item.Price}</del> Rs ${finalPrice}`
-:
-`Rs ${item.Price}`
-}
+${discount > 0
+? `<del>Rs ${price}</del> Rs ${finalPrice}`
+: `Rs ${price}`}
 
 </h4>
 
@@ -108,58 +117,74 @@ ${item.InStock ? "Order" : "Out of Stock"}
 
 </div>
 `;
-  });
 
-  setupFilters(); // IMPORTANT: run AFTER menu loads
-}
+        });
 
-// =========================
-// MENU FILTER (FIXED)
+        setupFilters();
+
+    } catch (error) {
+
+        console.error(error);
+
+        container.innerHTML =
+            "<p>Unable to load menu.</p>";
+
+    }
+
+}// =========================
+// CATEGORY FILTERS
 // =========================
 
 function setupFilters() {
 
-  const categoryButtons = document.querySelectorAll(".category-btn");
+    const buttons = document.querySelectorAll(".category-btn");
 
-  const foodCards = document.querySelectorAll(".food-card");
+    buttons.forEach(button => {
 
-  categoryButtons.forEach(button => {
+        button.addEventListener("click", () => {
 
-    button.addEventListener("click", () => {
+            buttons.forEach(btn =>
+                btn.classList.remove("active")
+            );
 
-      categoryButtons.forEach(btn =>
-        btn.classList.remove("active")
-      );
+            button.classList.add("active");
 
-      button.classList.add("active");
+            const filter = button.dataset.filter.toLowerCase();
 
-      const filter = button.dataset.filter;
+            document.querySelectorAll(".food-card").forEach(card => {
 
-      const cards = document.querySelectorAll(".food-card");
+                const category =
+                    (card.dataset.category || "").toLowerCase();
 
-      cards.forEach(card => {
+                if (filter === "all" || category === filter) {
+                    card.style.display = "";
+                } else {
+                    card.style.display = "none";
+                }
 
-        if (filter === "all" || card.dataset.category === filter) {
-          card.style.display = "block";
-        } else {
-          card.style.display = "none";
-        }
-      });
+            });
+
+        });
+
     });
-  });
+
 }
 
 // =========================
 // SOCIAL LINKS
 // =========================
 
-const facebookPage = "https://facebook.com/61583483672693";
-const tiktokPage = "https://tiktok.com/@khanpizzahut6060";
+const facebookPage =
+    "https://facebook.com/61583483672693";
 
-document.getElementById("facebookBtn")?.setAttribute("href", facebookPage);
-document.getElementById("facebookFooter")?.setAttribute("href", facebookPage);
-document.getElementById("tiktokBtn")?.setAttribute("href", tiktokPage);
-document.getElementById("tiktokFooter")?.setAttribute("href", tiktokPage);
+const tiktokPage =
+    "https://tiktok.com/@khanpizzahut6060";
+
+document.getElementById("facebookBtn")?.href = facebookPage;
+document.getElementById("facebookFooter")?.href = facebookPage;
+
+document.getElementById("tiktokBtn")?.href = tiktokPage;
+document.getElementById("tiktokFooter")?.href = tiktokPage;
 
 // =========================
 // NAVBAR SCROLL EFFECT
@@ -168,13 +193,14 @@ document.getElementById("tiktokFooter")?.setAttribute("href", tiktokPage);
 const navbar = document.getElementById("navbar");
 
 window.addEventListener("scroll", () => {
-  if (!navbar) return;
 
-  if (window.scrollY > 50) {
-    navbar.classList.add("nav-scrolled");
-  } else {
-    navbar.classList.remove("nav-scrolled");
-  }
+    if (!navbar) return;
+
+    navbar.classList.toggle(
+        "nav-scrolled",
+        window.scrollY > 50
+    );
+
 });
 
 // =========================
@@ -185,11 +211,48 @@ const menuToggle = document.getElementById("menuToggle");
 const navMenu = document.getElementById("navMenu");
 
 menuToggle?.addEventListener("click", () => {
-  navMenu?.classList.toggle("active");
+
+    navMenu?.classList.toggle("active");
+
+});
+
+// Close menu after clicking a link
+
+document.querySelectorAll("#navMenu a").forEach(link => {
+
+    link.addEventListener("click", () => {
+
+        navMenu?.classList.remove("active");
+
+    });
+
+});// =========================
+// START APPLICATION
+// =========================
+
+document.addEventListener("DOMContentLoaded", () => {
+
+    loadMenu();
+
 });
 
 // =========================
-// START APP
+// OPTIONAL IMAGE FALLBACK
 // =========================
 
-loadMenu();
+document.addEventListener("error", function (e) {
+
+    if (e.target.tagName === "IMG") {
+
+        e.target.src =
+            "https://placehold.co/600x400/111111/F77F00?text=Khan+Pizza+Hut";
+
+    }
+
+}, true);
+
+// =========================
+// DEBUG
+// =========================
+
+console.log("✅ Khan Pizza Hut loaded successfully.");
