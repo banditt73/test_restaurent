@@ -1,13 +1,8 @@
-// =========================
-// FIREBASE IMPORTS
-// =========================
-
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
-
 import {
-    getFirestore,
-    collection,
-    getDocs
+  getFirestore,
+  collection,
+  getDocs
 } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
 
 // =========================
@@ -15,13 +10,13 @@ import {
 // =========================
 
 const firebaseConfig = {
-    apiKey: "AIzaSyD38MbdY3awMPg4jhr16yMbk96HOltaMS0",
-    authDomain: "khan-pizza-hut.firebaseapp.com",
-    projectId: "khan-pizza-hut",
-    storageBucket: "khan-pizza-hut.firebasestorage.app",
-    messagingSenderId: "365147610724",
-    appId: "1:365147610724:web:eaff71796ccfa9e77a8971",
-    measurementId: "G-26E0XRT5N6"
+  apiKey: "AIzaSyD38MbdY3awMPg4jhr16yMbk96HOltaMS0",
+  authDomain: "khan-pizza-hut.firebaseapp.com",
+  projectId: "khan-pizza-hut",
+  storageBucket: "khan-pizza-hut.firebasestorage.app",
+  messagingSenderId: "365147610724",
+  appId: "1:365147610724:web:eaff71796ccfa9e77a8971",
+  measurementId: "G-26E0XRT5N6"
 };
 
 // =========================
@@ -32,21 +27,22 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
 // =========================
-// GLOBAL WHATSAPP FUNCTION
+// WHATSAPP
 // =========================
 
 window.openWhatsApp = function(item = "") {
 
-    const phone = "923453896060";
+  const number = "923453896060";
 
-    const message = item
-        ? `Hello Khan Pizza Hut! I would like to order ${item}.`
-        : "Hello Khan Pizza Hut! I would like to place an order.";
+  const text = item
+    ? `Hello Khan Pizza Hut, I want to order ${item}.`
+    : "Hello Khan Pizza Hut, I want to place an order.";
 
-    window.open(
-        `https://wa.me/${phone}?text=${encodeURIComponent(message)}`,
-        "_blank"
-    );
+  window.open(
+    `https://wa.me/${number}?text=${encodeURIComponent(text)}`,
+    "_blank"
+  );
+
 };
 
 // =========================
@@ -55,40 +51,38 @@ window.openWhatsApp = function(item = "") {
 
 async function loadMenu() {
 
-    const container = document.getElementById("menu-container");
+  const container = document.getElementById("menu-container");
 
-    if (!container) return;
+  if (!container) return;
 
-    container.innerHTML = "<p>Loading menu...</p>";
+  container.innerHTML = "";
 
-    try {
+  const snapshot = await getDocs(collection(db, "menu"));
 
-        const snapshot = await getDocs(collection(db, "menu"));
+  snapshot.forEach(doc => {
 
-        container.innerHTML = "";
+    const item = doc.data();
 
-        snapshot.forEach((doc) => {
+    const finalPrice =
+      item.Discount > 0
+        ? Math.round(item.Price * (1 - item.Discount / 100))
+        : item.Price;
 
-            const item = doc.data();
+    container.innerHTML += `
 
-            const price = Number(item.Price) || 0;
-            const discount = Number(item.Discount) || 0;
-
-            const finalPrice =
-                discount > 0
-                    ? Math.round(price * (1 - discount / 100))
-                    : price;
-
-            container.innerHTML += `
-<div class="food-card" data-category="${item.Category}">
+<div class="food-card"
+data-category="${item.Category.toLowerCase()}">
 
 <img src="${item.Image}" alt="${item.Name}">
 
 <div class="food-content">
 
 <div class="food-top">
+
 <h3>${item.Name}</h3>
-<span>⭐ ${item.Rating || "5.0"}</span>
+
+<span>⭐ ${item.Rating}</span>
+
 </div>
 
 <p>${item.Description}</p>
@@ -97,9 +91,11 @@ async function loadMenu() {
 
 <h4>
 
-${discount > 0
-? `<del>Rs ${price}</del> Rs ${finalPrice}`
-: `Rs ${price}`}
+${
+item.Discount > 0
+? `<del>Rs ${item.Price}</del> Rs ${finalPrice}`
+: `Rs ${item.Price}`
+}
 
 </h4>
 
@@ -107,7 +103,7 @@ ${discount > 0
 ${item.InStock ? "" : "disabled"}
 onclick="openWhatsApp('${item.Name}')">
 
-${item.InStock ? "Order" : "Out of Stock"}
+${item.InStock ? "Order Now" : "Out of Stock"}
 
 </button>
 
@@ -116,143 +112,85 @@ ${item.InStock ? "Order" : "Out of Stock"}
 </div>
 
 </div>
+
 `;
 
-        });
+  });
 
-        setupFilters();
+  setupFilters();
 
-    } catch (error) {
+}    container.innerHTML += `
+    <div class="food-card" data-category="${(item.Category || "").toLowerCase()}">
 
-        console.error(error);
+      <img src="${item.Image}" alt="${item.Name}">
 
-        container.innerHTML =
-            "<p>Unable to load menu.</p>";
+      <div class="food-content">
 
-    }
+        <div class="food-top">
+          <h3>${item.Name}</h3>
+          <span>⭐ ${item.Rating || "5.0"}</span>
+        </div>
 
-}// =========================
-// CATEGORY FILTERS
-// =========================
+        <p>${item.Description}</p>
 
-function setupFilters() {
+        <div class="food-bottom">
 
-    const buttons = document.querySelectorAll(".category-btn");
+          <h4>
+            ${
+              item.Discount > 0
+                ? `<del>Rs ${item.Price}</del> Rs ${finalPrice}`
+                : `Rs ${item.Price}`
+            }
+          </h4>
 
-    buttons.forEach(button => {
+          <button
+            ${item.InStock ? "" : "disabled"}
+            onclick="openWhatsApp('${item.Name}')">
 
-        button.addEventListener("click", () => {
+            ${item.InStock ? "Order" : "Out of Stock"}
 
-            buttons.forEach(btn =>
-                btn.classList.remove("active")
-            );
+          </button>
 
-            button.classList.add("active");
+        </div>
 
-            const filter = button.dataset.filter.toLowerCase();
+      </div>
 
-            document.querySelectorAll(".food-card").forEach(card => {
+    </div>
+    `;
+  });
 
-                const category =
-                    (card.dataset.category || "").toLowerCase();
-
-                if (filter === "all" || category === filter) {
-                    card.style.display = "";
-                } else {
-                    card.style.display = "none";
-                }
-
-            });
-
-        });
-
-    });
+  setupFilters();
 
 }
 
-// =========================
-// SOCIAL LINKS
-// =========================
+function setupFilters() {
 
-const facebookPage =
-    "https://facebook.com/61583483672693";
+  const buttons = document.querySelectorAll(".category-btn");
+  const cards = document.querySelectorAll(".food-card");
 
-const tiktokPage =
-    "https://tiktok.com/@khanpizzahut6060";
+  buttons.forEach(button => {
 
-document.getElementById("facebookBtn")?.href = facebookPage;
-document.getElementById("facebookFooter")?.href = facebookPage;
+    button.addEventListener("click", () => {
 
-document.getElementById("tiktokBtn")?.href = tiktokPage;
-document.getElementById("tiktokFooter")?.href = tiktokPage;
+      buttons.forEach(btn => btn.classList.remove("active"));
+      button.classList.add("active");
 
-// =========================
-// NAVBAR SCROLL EFFECT
-// =========================
+      const filter = button.dataset.filter.toLowerCase();
 
-const navbar = document.getElementById("navbar");
+      cards.forEach(card => {
 
-window.addEventListener("scroll", () => {
+        const category = card.dataset.category.toLowerCase();
 
-    if (!navbar) return;
+        if (filter === "all" || category === filter) {
+          card.style.display = "";
+        } else {
+          card.style.display = "none";
+        }
 
-    navbar.classList.toggle(
-        "nav-scrolled",
-        window.scrollY > 50
-    );
-
-});
-
-// =========================
-// MOBILE MENU
-// =========================
-
-const menuToggle = document.getElementById("menuToggle");
-const navMenu = document.getElementById("navMenu");
-
-menuToggle?.addEventListener("click", () => {
-
-    navMenu?.classList.toggle("active");
-
-});
-
-// Close menu after clicking a link
-
-document.querySelectorAll("#navMenu a").forEach(link => {
-
-    link.addEventListener("click", () => {
-
-        navMenu?.classList.remove("active");
+      });
 
     });
 
-});// =========================
-// START APPLICATION
-// =========================
+  });
 
-document.addEventListener("DOMContentLoaded", () => {
-
-    loadMenu();
-
-});
-
-// =========================
-// OPTIONAL IMAGE FALLBACK
-// =========================
-
-document.addEventListener("error", function (e) {
-
-    if (e.target.tagName === "IMG") {
-
-        e.target.src =
-            "https://placehold.co/600x400/111111/F77F00?text=Khan+Pizza+Hut";
-
-    }
-
-}, true);
-
-// =========================
-// DEBUG
-// =========================
-
-console.log("✅ Khan Pizza Hut loaded successfully.");
+}
