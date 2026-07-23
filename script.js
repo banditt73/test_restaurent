@@ -194,3 +194,48 @@ function setupFilters() {
   });
 
 }
+
+// =========================
+// SOCIAL LINKS
+// =========================
+
+const facebookPage = "https://facebook.com/61583483672693";
+const tiktokPage = "https://tiktok.com/@khanpizzahut6060";
+
+document.getElementById("facebookBtn")?.href = facebookPage;
+document.getElementById("facebookFooter")?.href = facebookPage;
+document.getElementById("tiktokBtn")?.href = tiktokPage;
+document.getElementById("tiktokFooter")?.href = tiktokPage;
+
+// =========================
+// NAVBAR SCROLL
+// =========================
+
+const navbar = document.getElementById("navbar");
+
+window.addEventListener("scroll", () => {
+  if (window.scrollY > 50) {
+    navbar.classList.add("nav-scrolled");
+  } else {
+    navbar.classList.remove("nav-scrolled");
+  }
+});
+
+// =========================
+// MOBILE MENU
+// =========================
+
+const menuToggle = document.getElementById("menuToggle");
+const navMenu = document.getElementById("navMenu");
+
+menuToggle?.addEventListener("click", () => {
+  navMenu.classList.toggle("active");
+});
+
+// =========================
+// START APP
+// =========================
+
+loadMenu().catch(error => {
+  console.error("Error loading menu:", error);
+});
