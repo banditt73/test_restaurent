@@ -114,6 +114,10 @@ nav a:hover{
       );
 }
 
+.hero-buttons a{
+    display:inline-block;
+}
+
 .hero::before{
   content:"";
   position:absolute;
