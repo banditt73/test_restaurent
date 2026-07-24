@@ -377,9 +377,6 @@ section{
 
 .about-grid{
     display:block;
-    grid-template-columns:1fr 1fr;
-    gap:35px;
-    align-items:center;
 }
 
 .about-text h2{
