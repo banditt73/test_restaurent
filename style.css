@@ -398,7 +398,7 @@ section{
 }
 
 .feature-box{
-    background:#242424;
+    background:rgba(255,255,255,.08);
     border-radius:15px;
     padding:14px;
     text-align:center;
@@ -407,10 +407,14 @@ section{
 .feature-box i{
     font-size:1.5rem;
     margin-bottom:8px;
+    color:#F77F00;
+}
 }
 
 .feature-box h3{
     font-size:.9rem;
+    color:#fff;
+}
 }
 /* Hide Happy Customers / Food Quality / Open Daily */
 
