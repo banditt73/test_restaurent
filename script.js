@@ -28,14 +28,14 @@ const db = getFirestore(app);
 
 window.openWhatsApp = function(item = "") {
 
-  const whatsappNumber = "923453896060";
+  const WhatsAppNumber = "923453896060";
 
   const message = item
     ? `Hello Khan Pizza Hut, I want to order ${item}.`
     : "Hello Khan Pizza Hut, I want to place an order.";
 
   window.open(
-    `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`,
+    `https://wa.me/${WhatsAppNumber}?text=${encodeURIComponent(message)}`,
     "_blank"
   );
 };
