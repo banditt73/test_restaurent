@@ -1,192 +1,410 @@
-function login() {
-
-  const password =
-  document.getElementById("adminPassword").value;
-
-  if(password === "Admin123") {
-
-    document.getElementById("loginBox").style.display = "none";
-
-    document.getElementById("adminPanel").style.display = "block";
-
-  } else {
-
-    alert("Wrong password");
-
-  }
-
-}
-
-window.login = login;
-
-import { initializeApp }
-from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
-
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
 import {
-getFirestore,
-collection,
-getDocs,
-setDoc,
-doc,
-deleteDoc
-}
-from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
+    getFirestore,
+    collection,
+    getDocs,
+    addDoc,
+    updateDoc,
+    deleteDoc,
+    doc
+} from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
 
+// =========================
+// FIREBASE CONFIG
+// =========================
 
 const firebaseConfig = {
-  apiKey: "AIzaSyD38MbdY3awMPg4jhr16yMbk96HOltaMS0",
-  authDomain: "khan-pizza-hut.firebaseapp.com",
-  projectId: "khan-pizza-hut",
-  storageBucket: "khan-pizza-hut.firebasestorage.app",
-  messagingSenderId: "365147610724",
-  appId: "1:365147610724:web:eaff71796ccfa9e77a8971",
-  measurementId: "G-26E0XRT5N6"
+    apiKey: "AIzaSyD38MbdY3awMPg4jhr16yMbk96HOltaMS0",
+    authDomain: "khan-pizza-hut.firebaseapp.com",
+    projectId: "khan-pizza-hut",
+    storageBucket: "khan-pizza-hut.firebasestorage.app",
+    messagingSenderId: "365147610724",
+    appId: "1:365147610724:web:eaff71796ccfa9e77a8971",
+    measurementId: "G-26E0XRT5N6"
 };
 
 const app = initializeApp(firebaseConfig);
-
 const db = getFirestore(app);
 
+// =========================
+// DOM ELEMENTS
+// =========================
+
+const menuList = document.getElementById("menuList");
+
+const totalItems = document.getElementById("totalItems");
+const featuredItems = document.getElementById("featuredItems");
+const stockItems = document.getElementById("stockItems");
+const categories = document.getElementById("categories");
+
+const searchInput = document.getElementById("searchInput");
+const categoryFilter = document.getElementById("categoryFilter");
+
+const editor = document.getElementById("editor");
+const editorTitle = document.getElementById("editorTitle");
+
+const itemName = document.getElementById("itemName");
+const itemPrice = document.getElementById("itemPrice");
+const itemImage = document.getElementById("itemImage");
+const previewImage = document.getElementById("previewImage");
+const itemDescription = document.getElementById("itemDescription");
+const itemCategory = document.getElementById("itemCategory");
+const itemDiscount = document.getElementById("itemDiscount");
+const itemStock = document.getElementById("itemStock");
+const itemFeatured = document.getElementById("itemFeatured");
+const itemVisible = document.getElementById("itemVisible");
+
+let menu = [];
 let editingId = null;
 
-window.saveItem = async function(){
+// =========================
+// LOAD MENU
+// =========================
 
-const name =
-document.getElementById("name").value;
+async function loadMenu() {
 
-const price =
-Number(document.getElementById("price").value);
+    menu = [];
 
-const image =
-document.getElementById("image").value;
+    const snapshot = await getDocs(collection(db, "menu"));
 
-const category =
-document.getElementById("category").value;
+    snapshot.forEach(document => {
 
-const description =
-document.getElementById("description").value;
+        menu.push({
+            id: document.id,
+            ...document.data()
+        });
 
-const discount =
-Number(document.getElementById("discount").value);
+    });
 
-const stock =
-document.getElementById("stock").checked;
+    renderMenu(menu);
+    updateStats();
 
-const id =
-editingId || name.replace(/\s+/g,'');
+}
 
-await setDoc(doc(db,"menu",id),{
+// =========================
+// UPDATE DASHBOARD
+// =========================
 
-Name:name,
-Price:price,
-Image:image,
-Category:category,
-Description:description,
-Discount:discount,
-InStock:stock
+function updateStats() {
 
-});
+    totalItems.textContent = menu.length;
 
-editingId = null;
+    featuredItems.textContent =
+        menu.filter(item => item.Featured).length;
 
-loadItems();
-};
+    stockItems.textContent =
+        menu.filter(item => item.InStock).length;
 
-async function loadItems(){
+    categories.textContent =
+        new Set(menu.map(item => item.Category)).size;
 
-const container =
-document.getElementById("items");
+}
 
-container.innerHTML="";
+// =========================
+// RENDER MENU
+// =========================
 
-const snap =
-await getDocs(collection(db,"menu"));
+function renderMenu(list) {
 
-snap.forEach(docSnap=>{
+    menuList.innerHTML = "";
 
-const data = docSnap.data();
+    list.forEach(item => {
 
-const div =
-document.createElement("div");
+        const finalPrice =
+            item.Discount > 0
+            ? Math.round(item.Price * (1 - item.Discount / 100))
+            : item.Price;
 
-div.className="item";
+        menuList.innerHTML += `
 
-div.innerHTML=`
+<div class="menu-card">
 
-<div>
-<b>${data.Name}</b><br>
-Rs ${data.Price}
+<img src="${item.Image}" alt="${item.Name}">
+
+<div class="menu-info">
+
+<h3>${item.Name}</h3>
+
+<p>${item.Description}</p>
+
+<strong>
+
+${item.Discount > 0
+?
+`<del>Rs ${item.Price}</del> Rs ${finalPrice}`
+:
+`Rs ${item.Price}`}
+
+</strong>
+
+<div class="tags">
+
+<span>${item.Category}</span>
+
+${item.InStock
+? "<span class='green'>In Stock</span>"
+: "<span class='red'>Out of Stock</span>"}
+
+${item.Featured
+? "<span class='orange'>Featured</span>"
+: ""}
+
 </div>
 
 <div class="actions">
 
-<button onclick="editItem('${docSnap.id}')">
+<button class="edit-btn"
+data-id="${item.id}">
+
 Edit
+
 </button>
 
-<button onclick="removeItem('${docSnap.id}')">
+<button class="delete-btn"
+data-id="${item.id}">
+
 Delete
+
 </button>
+
+</div>
+
+</div>
 
 </div>
 
 `;
 
-container.appendChild(div);
+    });
+
+}
+
+// =========================
+// SEARCH
+// =========================
+
+searchInput.addEventListener("input", () => {
+
+    const text = searchInput.value.toLowerCase();
+
+    const filtered = menu.filter(item =>
+        item.Name.toLowerCase().includes(text)
+    );
+
+    renderMenu(filtered);
 
 });
 
-}
+// =========================
+// CATEGORY FILTER
+// =========================
 
-window.removeItem = async function(id){
+categoryFilter.addEventListener("change", () => {
 
-if(!confirm("Delete item?")) return;
+    const category = categoryFilter.value;
 
-await deleteDoc(doc(db,"menu",id));
+    if (category === "all") {
 
-loadItems();
+        renderMenu(menu);
 
-}
+    } else {
 
-window.editItem = async function(id){
+        renderMenu(
+            menu.filter(item => item.Category === category)
+        );
 
-const snap =
-await getDocs(collection(db,"menu"));
-
-snap.forEach(docSnap=>{
-
-if(docSnap.id===id){
-
-const data =
-docSnap.data();
-
-document.getElementById("name").value =
-data.Name || "";
-
-document.getElementById("price").value =
-data.Price || "";
-
-document.getElementById("image").value =
-data.Image || "";
-
-document.getElementById("category").value =
-data.Category || "";
-
-document.getElementById("description").value =
-data.Description || "";
-
-document.getElementById("discount").value =
-data.Discount || 0;
-
-document.getElementById("stock").checked =
-data.InStock;
-
-editingId=id;
-
-}
+    }
 
 });
 
+// =========================
+// IMAGE PREVIEW
+// =========================
+
+itemImage.addEventListener("input", () => {
+
+    previewImage.src = itemImage.value;
+
+});
+
+// =========================
+// CLEAR FORM
+// =========================
+
+function clearForm() {
+
+    editingId = null;
+
+    itemName.value = "";
+    itemPrice.value = "";
+    itemImage.value = "";
+    itemDescription.value = "";
+    itemCategory.value = "Burger";
+    itemDiscount.value = 0;
+
+    itemStock.checked = true;
+    itemFeatured.checked = false;
+    itemVisible.checked = true;
+
+    previewImage.src = "";
+
 }
 
-loadItems();
+// =========================
+// OPEN ADD ITEM
+// =========================
+
+document.getElementById("addItemBtn")
+.addEventListener("click", () => {
+
+    clearForm();
+
+    editorTitle.textContent = "Add Menu Item";
+
+    editor.classList.remove("hidden");
+
+});
+
+// =========================
+// CANCEL
+// =========================
+
+document.getElementById("cancelBtn")
+.addEventListener("click", () => {
+
+    editor.classList.add("hidden");
+
+});
+
+// =========================
+// EDIT BUTTON
+// =========================
+
+menuList.addEventListener("click", e => {
+
+    if (!e.target.classList.contains("edit-btn")) return;
+
+    editingId = e.target.dataset.id;
+
+    const item = menu.find(i => i.id === editingId);
+
+    if (!item) return;
+
+    editorTitle.textContent = "Edit Menu Item";
+
+    itemName.value = item.Name;
+    itemPrice.value = item.Price;
+    itemImage.value = item.Image;
+    itemDescription.value = item.Description;
+    itemCategory.value = item.Category;
+    itemDiscount.value = item.Discount;
+
+    itemStock.checked = item.InStock;
+    itemFeatured.checked = item.Featured;
+    itemVisible.checked = item.Visible;
+
+    previewImage.src = item.Image;
+
+    editor.classList.remove("hidden");
+
+});
+
+// =========================
+// SAVE
+// =========================
+
+document.getElementById("saveBtn").addEventListener("click", async () => {
+
+    const data = {
+
+        Name: itemName.value.trim(),
+        Price: Number(itemPrice.value),
+        Image: itemImage.value.trim(),
+        Description: itemDescription.value.trim(),
+        Category: itemCategory.value,
+        Discount: Number(itemDiscount.value) || 0,
+        InStock: itemStock.checked,
+        Featured: itemFeatured.checked,
+        Visible: itemVisible.checked,
+        Rating: 5
+
+    };
+
+    if (
+        !data.Name ||
+        !data.Image ||
+        !data.Description
+    ) {
+        alert("Please fill all required fields.");
+        return;
+    }
+
+    try {
+
+        if (editingId) {
+
+            await updateDoc(
+                doc(db, "menu", editingId),
+                data
+            );
+
+        } else {
+
+            await addDoc(
+                collection(db, "menu"),
+                data
+            );
+
+        }
+
+        editor.classList.add("hidden");
+
+        clearForm();
+
+        await loadMenu();
+
+    } catch (err) {
+
+        console.error(err);
+
+        alert("Failed to save item.");
+
+    }
+
+});
+
+// =========================
+// DELETE
+// =========================
+
+menuList.addEventListener("click", async e => {
+
+    if (!e.target.classList.contains("delete-btn")) return;
+
+    const id = e.target.dataset.id;
+
+    if (!confirm("Delete this menu item?")) return;
+
+    try {
+
+        await deleteDoc(
+            doc(db, "menu", id)
+        );
+
+        await loadMenu();
+
+    } catch (err) {
+
+        console.error(err);
+
+        alert("Failed to delete item.");
+
+    }
+
+});
+
+// =========================
+// INITIAL LOAD
+// =========================
+
+loadMenu();
