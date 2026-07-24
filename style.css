@@ -108,8 +108,11 @@ nav a:hover{
 
 .menu-toggle{
     display:none;
-    font-size:2rem;
+    font-size:1.8rem;
+    color:#fff;
     cursor:pointer;
+    position:relative;
+    top:-5px;
 }
 
 /* ===================== */
