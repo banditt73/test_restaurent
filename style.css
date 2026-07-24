@@ -399,18 +399,19 @@ section{
 
 .feature-box{
     background:rgba(255,255,255,.06);
-    border-radius:18px;
-    padding:18px;
+    border-radius:15px;
+    padding:14px;
     text-align:center;
-    width:100%;
 }
 
 .feature-box i{
-    font-size:2rem;
-    color:#F77F00;
-    margin-bottom:14px;
+    font-size:1.5rem;
+    margin-bottom:8px;
 }
 
+.feature-box h3{
+    font-size:.9rem;
+}
 /* Hide Happy Customers / Food Quality / Open Daily */
 
 .stats{
@@ -665,12 +666,11 @@ grid-template-columns:1fr;
 }
 
 .features{
-    display:grid;
-    grid-template-columns:repeat(2,minmax(0,1fr));
-    gap:15px;
-    width:100%;
+display:grid;
+grid-template-columns:repeat(2,minmax(120px,1fr));
+gap:10px;
 }
-
+    
 .footer-content{
 flex-direction:column;
 text-align:center;
