@@ -119,10 +119,6 @@ nav a:hover{
     transition:.3s ease;
 }
 
-.menu-toggle i.fa-xmark{
-    transform:rotate(180deg);
-}
-
 /* ===================== */
 /* HERO */
 /* ===================== */
