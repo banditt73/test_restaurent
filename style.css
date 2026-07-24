@@ -697,9 +697,23 @@ font-size:2rem;
 }
 
 .features{
-grid-template-columns:1fr;
+    grid-template-columns:repeat(2,1fr);
+    gap:10px;
+}
+    
+.feature-box{
+    padding:12px;
 }
 
+.feature-box h3{
+    font-size:.85rem;
+}
+
+.feature-box i{
+    font-size:1.4rem;
+    margin-bottom:8px;
+}
+    
 .category-btn{
 padding:12px 18px;
 font-size:.9rem;
