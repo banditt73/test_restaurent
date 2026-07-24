@@ -88,12 +88,12 @@ async function loadMenu() {
 
             <h4>
 
-              ${
-                discount > 0
-                ? `<del>Rs ${price}</del> Rs ${finalPrice}`
-                : `Rs ${price}`
-              }
-
+             ${
+  discount > 0
+    ? `<span class="new-price">Rs ${finalPrice}</span>
+       <span class="old-price">Rs ${price}</span>`
+    : `Rs ${price}`
+}
             </h4>
 
             <button
