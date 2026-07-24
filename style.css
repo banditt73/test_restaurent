@@ -115,6 +115,14 @@ nav a:hover{
     top:-5px;
 }
 
+.menu-toggle i{
+    transition:.3s ease;
+}
+
+.menu-toggle i.fa-xmark{
+    transform:rotate(180deg);
+}
+
 /* ===================== */
 /* HERO */
 /* ===================== */
