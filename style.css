@@ -66,17 +66,20 @@ a{
 .logo{
     font-size:1.8rem;
     font-weight:800;
-    background:linear-gradient(135deg,#0F0F0F,#3A3A3A,#7A7A7A);
+    background:linear-gradient(135deg,#F5F5F5,#BDBDBD,#7A7A7A);
     -webkit-background-clip:text;
-    -webkit-text-fill-color:transparent;
     background-clip:text;
+    -webkit-text-fill-color:transparent;
+    color:transparent;
+
     position:relative;
-    left:-3px;
+    left:-8px;
     top:-3px;
 }
 
 .logo span{
     color:#F77F00;
+    -webkit-text-fill-color:#F77F00;
 }
 
 nav{
