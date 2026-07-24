@@ -268,7 +268,7 @@ section{
 }
 
 .food-content{
-    padding:22px;
+    padding:14px;
 }
 
 .food-top{
@@ -279,7 +279,8 @@ section{
 }
 
 .food-top h3{
-    font-size:1.35rem;
+    font-size:1rem;
+    margin:0;
 }
 
 .food-top span{
@@ -287,9 +288,9 @@ section{
 }
 
 .food-content p{
-    color:#bdbdbd;
-    line-height:1.6;
-    margin-bottom:20px;
+    font-size:.85rem;
+    line-height:1.35;
+    margin:8px 0;
 }
 
 .food-bottom{
@@ -299,8 +300,8 @@ section{
 }
 
 .food-bottom h4{
-    color:#F77F00;
-    font-size:1.35rem;
+    font-size:1rem;
+    margin:0;
 }
 
 .food-bottom del{
@@ -312,7 +313,7 @@ section{
     border:none;
     background:#C1121F;
     color:#fff;
-    padding:12px 20px;
+    padding:8px 16px;
     border-radius:40px;
     cursor:pointer;
     transition:.3s;
