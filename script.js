@@ -191,8 +191,15 @@ window.addEventListener("scroll", () => {
 const menuToggle = document.getElementById("menuToggle");
 const navMenu = document.getElementById("navMenu");
 
+const menuIcon = document.getElementById("menuIcon");
+
 menuToggle?.addEventListener("click", () => {
-  navMenu?.classList.toggle("active");
+
+    navMenu?.classList.toggle("active");
+
+    menuIcon.classList.toggle("fa-bars");
+    menuIcon.classList.toggle("fa-xmark");
+
 });
 
 // =========================
