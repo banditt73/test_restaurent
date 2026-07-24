@@ -28,16 +28,17 @@ const db = getFirestore(app);
 
 window.openWhatsApp = function(item = "") {
 
-  const WhatsAppNumber = "923453896060";
+  const phone = "923453896060";
 
-  const message = item
+  const text = item
     ? `Hello Khan Pizza Hut, I want to order ${item}.`
     : "Hello Khan Pizza Hut, I want to place an order.";
 
   window.open(
-    `https://wa.me/${WhatsAppNumber}?text=${encodeURIComponent(message)}`,
+    `https://wa.me/${phone}?text=${encodeURIComponent(text)}`,
     "_blank"
   );
+
 };
 
 // =========================
@@ -54,21 +55,23 @@ async function loadMenu() {
 
   const snapshot = await getDocs(collection(db, "menu"));
 
-  snapshot.forEach((doc) => {
+  snapshot.forEach(doc => {
 
     const item = doc.data();
 
-    const price = Number(item.Price || 0);
-    const discount = Number(item.Discount || 0);
+    const price = Number(item.Price ?? 0);
+    const discount = Number(item.Discount ?? 0);
 
     const finalPrice =
       discount > 0
-        ? Math.round(price * (1 - discount / 100))
+        ? Math.round(price - (price * discount / 100))
         : price;
 
+    const category =
+      String(item.Category || "").toLowerCase();
+
     container.innerHTML += `
-      <div class="food-card"
-           data-category="${(item.Category || "").toLowerCase()}">
+      <div class="food-card" data-category="${category}">
 
         <img src="${item.Image}" alt="${item.Name}">
 
@@ -79,14 +82,18 @@ async function loadMenu() {
             <span>⭐ ${item.Rating || "5.0"}</span>
           </div>
 
-          <p>${item.Description}</p><div class="food-bottom">
+          <p>${item.Description}</p>
+
+          <div class="food-bottom">
 
             <h4>
+
               ${
                 discount > 0
-                  ? `<del>Rs ${price}</del> Rs ${finalPrice}`
-                  : `Rs ${price}`
+                ? `<del>Rs ${price}</del> Rs ${finalPrice}`
+                : `Rs ${price}`
               }
+
             </h4>
 
             <button
@@ -123,11 +130,14 @@ function setupFilters() {
     button.addEventListener("click", () => {
 
       buttons.forEach(btn => btn.classList.remove("active"));
+
       button.classList.add("active");
 
       const filter = button.dataset.filter.toLowerCase();
 
-      document.querySelectorAll(".food-card").forEach(card => {
+      const cards = document.querySelectorAll(".food-card");
+
+      cards.forEach(card => {
 
         const category = card.dataset.category.toLowerCase();
 
@@ -152,11 +162,12 @@ function setupFilters() {
 const facebookPage = "https://facebook.com/61583483672693";
 const tiktokPage = "https://tiktok.com/@khanpizzahut6060";
 
-document.getElementById("facebookBtn")?.href = facebookPage;
-document.getElementById("facebookFooter")?.href = facebookPage;
+document.getElementById("facebookBtn")?.setAttribute("href", facebookPage);
+document.getElementById("facebookFooter")?.setAttribute("href", facebookPage);
 
-document.getElementById("tiktokBtn")?.href = tiktokPage;
-document.getElementById("tiktokFooter")?.href = tiktokPage;
+document.getElementById("tiktokBtn")?.setAttribute("href", tiktokPage);
+document.getElementById("tiktokFooter")?.setAttribute("href", tiktokPage);
+
 // =========================
 // NAVBAR SCROLL
 // =========================
@@ -165,12 +176,10 @@ const navbar = document.getElementById("navbar");
 
 window.addEventListener("scroll", () => {
 
-  if (!navbar) return;
-
   if (window.scrollY > 50) {
-    navbar.classList.add("nav-scrolled");
+    navbar?.classList.add("nav-scrolled");
   } else {
-    navbar.classList.remove("nav-scrolled");
+    navbar?.classList.remove("nav-scrolled");
   }
 
 });
@@ -191,5 +200,5 @@ menuToggle?.addEventListener("click", () => {
 // =========================
 
 loadMenu().catch(error => {
-  console.error("Menu failed to load:", error);
+  console.error("Firebase Error:", error);
 });
