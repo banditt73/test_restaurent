@@ -251,11 +251,9 @@ section{
 }
 
 .food-card{
-    background:rgba(255,255,255,.06);
-    border-radius:22px;
-    overflow:hidden;
-    transition:.35s;
-    backdrop-filter:blur(10px);
+    display:flex;
+    flex-direction:column;
+    height:100%;
 }
 
 .food-card:hover{
@@ -269,21 +267,26 @@ section{
 
 .food-content{
     padding:12px 14px;
+    display:flex;
+    flex-direction:column;
+    flex:1;
 }
 
 .food-top{
     display:flex;
-    justify-content:space-between;
     align-items:center;
     margin-bottom:8px;
 }
 
 .food-top h3{
-    font-size:1rem;
     margin:0;
+    font-size:1rem;
 }
 
 .food-top span{
+    margin-left:auto;
+    font-size:.85rem;
+    font-weight:700;
     color:#FCBF49;
 }
 
@@ -298,11 +301,26 @@ section{
     display:flex;
     justify-content:space-between;
     align-items:center;
+    margin-top:auto;
 }
 
 .food-bottom h4{
-    font-size:1rem;
+    display:flex;
+    align-items:center;
+    gap:6px;
     margin:0;
+    white-space:nowrap;
+}
+
+.old-price{
+    text-decoration:line-through;
+    color:#999;
+    font-size:.85rem;
+}
+
+.new-price{
+    color:#F77F00;
+    font-weight:700;
 }
 
 .food-bottom del{
