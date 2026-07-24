@@ -268,14 +268,14 @@ section{
 }
 
 .food-content{
-    padding:14px;
+    padding:12px 14px;
 }
 
 .food-top{
     display:flex;
     justify-content:space-between;
     align-items:center;
-    margin-bottom:12px;
+    margin-bottom:8px;
 }
 
 .food-top h3{
@@ -289,8 +289,9 @@ section{
 
 .food-content p{
     font-size:.85rem;
-    line-height:1.35;
-    margin:8px 0;
+    line-height:1.3;
+    margin:6px 0 10px;
+    color:#ccc;
 }
 
 .food-bottom{
@@ -313,7 +314,7 @@ section{
     border:none;
     background:#C1121F;
     color:#fff;
-    padding:8px 16px;
+    padding:8px 14px;
     border-radius:40px;
     cursor:pointer;
     transition:.3s;
